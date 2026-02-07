@@ -1,7 +1,7 @@
 package ru.nickolay.learningandrememberxmlversion.domain
 
-class DeleteItemFromShopListUseCase {
+class DeleteItemFromShopListUseCase(private val repository: ShopListRepository) {
     fun deleteShopItem(shopItem: ShopItem) {
-        TODO()
+        repository.deleteShopItem(shopItem)
     }
 }
