@@ -1,7 +1,7 @@
 package ru.nickolay.learningandrememberxmlversion.domain
 
-class EditItemInShopListUseCase {
+class EditItemInShopListUseCase(private val repository: ShopListRepository) {
     fun editShopItem(shopItem: ShopItem){
-        TODO()
+        repository.editShopeItem(shopItem)
     }
 }

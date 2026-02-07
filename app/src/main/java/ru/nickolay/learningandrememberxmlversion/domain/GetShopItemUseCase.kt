@@ -1,7 +1,7 @@
 package ru.nickolay.learningandrememberxmlversion.domain
 
-class GetShopItemUseCase {
+class GetShopItemUseCase(private val repository: ShopListRepository) {
     fun getShopItem(shopItemId: Int): ShopItem {
-        TODO()
+        return repository.getShopeItem(shopItemId)
     }
 }
