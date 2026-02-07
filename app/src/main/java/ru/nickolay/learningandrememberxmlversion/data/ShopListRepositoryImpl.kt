@@ -1,10 +1,13 @@
 package ru.nickolay.learningandrememberxmlversion.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import ru.nickolay.learningandrememberxmlversion.domain.ShopItem
 import ru.nickolay.learningandrememberxmlversion.domain.ShopListRepository
-import kotlin.jvm.Throws
+
 
 class ShopListRepositoryImpl : ShopListRepository {
+    private val shopListLiveData = MutableLiveData<List<ShopItem>>()
     private val shopList = mutableListOf<ShopItem>()
     private var autoIncrementId = 0
 
@@ -13,10 +16,12 @@ class ShopListRepositoryImpl : ShopListRepository {
             shopItem.id = autoIncrementId++
         }
         shopList.add(shopItem)
+        updateList()
     }
 
     override fun deleteShopItem(shopItem: ShopItem) {
         shopList.remove(shopItem)
+        updateList()
     }
 
     override fun editShopeItem(shopItem: ShopItem) {
@@ -30,7 +35,11 @@ class ShopListRepositoryImpl : ShopListRepository {
             ?: throw RuntimeException("Element with id $shopItemId not found")
     }
 
-    override fun getShopList(): List<ShopItem> {
-        return shopList.toList()
+    override fun getShopList(): LiveData<List<ShopItem>> {
+        return shopListLiveData
+    }
+
+    private fun updateList() {
+        shopListLiveData.value = shopList.toList()
     }
 }
